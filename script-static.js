@@ -53,31 +53,30 @@ function loadPortfolioContent() {
     }
 }
 
-// Add subtle mouse movement effects
-document.addEventListener('mousemove', function(e) {
-    const card = document.querySelector('.portfolio-card');
-    if (!card) return;
-    
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-    
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
+// Classic mouse movement effect
+const portfolioCard = document.querySelector('.portfolio-card');
+if (portfolioCard) {
+    document.addEventListener('mousemove', function(e) {
+        const rect = portfolioCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-// Reset card position when mouse leaves
-document.addEventListener('mouseleave', function() {
-    const card = document.querySelector('.portfolio-card');
-    if (card) {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    }
-});
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        // Subtle rotation effect
+        const rotateX = (y - centerY) / 30;
+        const rotateY = (centerX - x) / 30;
+
+        portfolioCard.style.transition = 'transform 0.1s ease-out';
+        portfolioCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    document.addEventListener('mouseleave', function() {
+        portfolioCard.style.transition = 'transform 0.3s ease-out';
+        portfolioCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+}
 
 // Typewriter effect for specific elements
 function typewriterEffect(element, text, speed = 100) {
@@ -115,3 +114,33 @@ document.addEventListener('keydown', function(e) {
         e.target.click();
     }
 });
+
+// Functionality to change card design on left mouse click
+const card = document.querySelector('.central-card');
+const designs = ['design1', 'design2', 'design3', 'design4', 'design5', 'design6', 'design7', 'design8', 'design9', 'design10']; // Add CSS class names for all designs
+let currentDesignIndex = 0;
+
+if (card) {
+    console.log('Central card element found:', card);
+    card.addEventListener('click', (event) => {
+        if (event.button === 0) { // Left mouse button
+            console.log('Card clicked');
+            console.log('Current design index:', currentDesignIndex);
+            console.log('Current design class:', designs[currentDesignIndex]);
+
+            // Remove current design class
+            card.classList.remove(designs[currentDesignIndex]);
+
+            // Update design index
+            currentDesignIndex = (currentDesignIndex + 1) % designs.length;
+
+            // Add new design class
+            card.classList.add(designs[currentDesignIndex]);
+
+            console.log('New design index:', currentDesignIndex);
+            console.log('New design class:', designs[currentDesignIndex]);
+        }
+    });
+} else {
+    console.error('Central card element not found');
+}

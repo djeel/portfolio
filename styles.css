@@ -265,6 +265,62 @@ body {
     51%, 100% { border-color: transparent; }
 }
 
+/* Central Card Designs */
+.central-card {
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
+}
+
+/* Design 1 */
+.central-card.design1 {
+    background: #f8e5e5; /* Pastel pink */
+}
+
+/* Design 2 */
+.central-card.design2 {
+    background: #fae3d9; /* Pastel peach */
+}
+
+/* Design 3 */
+.central-card.design3 {
+    background: #d5e8d4; /* Pastel green */
+}
+
+/* Design 4 */
+.central-card.design4 {
+    background: #d4e4fa; /* Pastel blue */
+}
+
+/* Design 5 */
+.central-card.design5 {
+    background: #f3e5f5; /* Pastel purple */
+}
+
+/* Design 6 */
+.central-card.design6 {
+    background: #fdf5e6; /* Pastel cream */
+}
+
+/* Design 7 */
+.central-card.design7 {
+    background: #e5f8f8; /* Pastel cyan */
+}
+
+/* Design 8 */
+.central-card.design8 {
+    background: #f8e5f8; /* Pastel magenta */
+}
+
+/* Design 9 */
+.central-card.design9 {
+    background: #f5f5dc; /* Pastel beige */
+}
+
+/* Design 10 */
+.central-card.design10 {
+    background: #e5e5f8; /* Pastel lavender */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .portfolio-card {
