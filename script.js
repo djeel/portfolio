@@ -2,8 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
+    const portfolioCard = document.querySelector('.portfolio-card');
     
-    // Hide loading screen after 2 seconds
+    // Hide loading screen after 1 second
     setTimeout(() => {
         loadingScreen.classList.add('fade-out');
         
@@ -12,94 +13,129 @@ document.addEventListener('DOMContentLoaded', function() {
             mainContent.classList.remove('hidden');
             mainContent.classList.add('visible');
             
-            // Fallback: Load content if HTMX hasn't loaded it yet
+            // Load content after loading screen
+            loadPortfolioContent();
+            
+            // Démarre l'animation de fade-in de la carte
             setTimeout(() => {
-                const portfolioContent = document.getElementById('portfolio-content');
-                if (portfolioContent && portfolioContent.innerHTML.trim() === '<!-- Content will be loaded here -->') {
-                    console.log('HTMX failed, loading content manually');
-                    fetch('/portfolio-content')
-                        .then(response => response.text())
-                        .then(html => {
-                            portfolioContent.innerHTML = html;
-                            portfolioContent.classList.add('htmx-added');
-                        })
-                        .catch(error => {
-                            console.error('Error loading content:', error);
-                            // Load static content as final fallback
-                            portfolioContent.innerHTML = `
-                                <div class="name">jules beaugrand</div>
-                                <div class="title">product designer</div>
-                                <div class="info-item">live in france</div>
-                                <div class="info-item">speaking: french & english</div>
-                                <div class="info-item contact">
-                                    contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
-                                </div>
-                            `;
-                            portfolioContent.classList.add('htmx-added');
-                        });
+                if (portfolioCard) {
+                    isAnimating = true;
+                    animateCard();
                 }
-            }, 1000);
-        }, 500);
-    }, 2000);
+            }, 100);
+        }, 300);
+    }, 1000);
 });
 
-// HTMX event listeners for smooth transitions
-document.addEventListener('htmx:beforeRequest', function(event) {
-    console.log('HTMX: Before request to', event.detail.xhr.responseURL);
-    const target = event.target;
-    target.classList.add('htmx-loading');
-});
-
-document.addEventListener('htmx:afterRequest', function(event) {
-    console.log('HTMX: After request, status:', event.detail.xhr.status);
-});
-
-document.addEventListener('htmx:afterSettle', function(event) {
-    console.log('HTMX: Content loaded successfully');
-    const target = event.target;
-    target.classList.remove('htmx-loading');
-    target.classList.add('htmx-added');
+// Load portfolio content
+function loadPortfolioContent() {
+    const portfolioContent = document.getElementById('portfolio-content');
+    
+    // Static content for GitHub Pages
+    const content = `
+        <div class="name">jules beaugrand</div>
+        <div class="title">product designer</div>
+        <div class="info-item">live in france</div>
+        <div class="info-item">speaking: french & english</div>
+        <div class="info-item contact">
+            contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
+        </div>
+    `;
+    
+    // Add content with animation
+    portfolioContent.innerHTML = content;
+    portfolioContent.classList.add('htmx-added');
     
     // Add staggered animation to text elements
-    const textElements = target.querySelectorAll('.name, .title, .info-item');
+    const textElements = portfolioContent.querySelectorAll('.name, .title, .info-item');
     textElements.forEach((element, index) => {
         element.style.animationDelay = `${0.2 + (index * 0.2)}s`;
     });
-});
-
-document.addEventListener('htmx:responseError', function(event) {
-    console.error('HTMX: Response error:', event.detail);
-});
-
-document.addEventListener('htmx:sendError', function(event) {
-    console.error('HTMX: Send error:', event.detail);
-});
-
-// Add subtle mouse movement effects
-document.addEventListener('mousemove', function(e) {
-    const card = document.querySelector('.portfolio-card');
-    if (!card) return;
     
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-    
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
-
-// Reset card position when mouse leaves
-document.addEventListener('mouseleave', function() {
-    const card = document.querySelector('.portfolio-card');
-    if (card) {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    // Apply typewriter effect to name
+    const nameElement = portfolioContent.querySelector('.name');
+    if (nameElement) {
+        const originalText = nameElement.textContent;
+        setTimeout(() => {
+            typewriterEffect(nameElement, originalText, 100);
+        }, 500);
     }
-});
+}
+
+// Classic mouse movement effect with fade-in animation
+const portfolioCard = document.querySelector('.portfolio-card');
+let mouseX = 0, mouseY = 0;
+let currentRotateX = 0, currentRotateY = 0;
+let isAnimating = false;
+
+// Variables pour l'animation de fade-in
+let fadeProgress = 0;
+let animationStartTime = null;
+
+function animateCard() {
+    const now = Date.now();
+    
+    if (!animationStartTime) {
+        animationStartTime = now;
+    }
+    
+    const elapsed = now - animationStartTime;
+    const duration = 800; // 800ms pour l'animation
+    
+    // Calcul du progrès de l'animation (0 à 1)
+    fadeProgress = Math.min(elapsed / duration, 1);
+    const easeOut = 1 - Math.pow(1 - fadeProgress, 3); // Courbe ease-out
+    
+    // Animation du fade-in
+    const opacity = easeOut;
+    const translateY = 30 * (1 - easeOut);
+    const scale = 0.95 + (0.05 * easeOut);
+    
+    // Combine avec l'effet de souris
+    portfolioCard.style.opacity = opacity;
+    portfolioCard.style.transform = `perspective(1000px) translateY(${translateY}px) scale(${scale}) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+    
+    // Continue l'animation jusqu'à la fin
+    if (fadeProgress < 1) {
+        requestAnimationFrame(animateCard);
+    } else {
+        isAnimating = false;
+    }
+}
+
+if (portfolioCard) {
+    document.addEventListener('mousemove', function(e) {
+        const rect = portfolioCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        // Calcul de la rotation
+        const targetRotateX = (y - centerY) / 30;
+        const targetRotateY = (centerX - x) / 30;
+        
+        // Lissage de l'effet de souris
+        currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+        currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+        
+        // Applique la transformation si pas en animation de fade-in
+        if (!isAnimating) {
+            portfolioCard.style.transform = `perspective(1000px) translateY(0px) scale(1) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+        }
+    });
+
+    document.addEventListener('mouseleave', function() {
+        // Reset progressif
+        currentRotateX *= 0.9;
+        currentRotateY *= 0.9;
+        
+        if (!isAnimating) {
+            portfolioCard.style.transform = `perspective(1000px) translateY(0px) scale(1) rotateX(0deg) rotateY(0deg)`;
+        }
+    });
+}
 
 // Typewriter effect for specific elements
 function typewriterEffect(element, text, speed = 100) {
@@ -116,17 +152,6 @@ function typewriterEffect(element, text, speed = 100) {
     
     type();
 }
-
-// Apply typewriter effect to name when content loads
-document.addEventListener('htmx:afterSettle', function() {
-    const nameElement = document.querySelector('.name');
-    if (nameElement && nameElement.textContent) {
-        const originalText = nameElement.textContent;
-        setTimeout(() => {
-            typewriterEffect(nameElement, originalText, 100);
-        }, 500);
-    }
-});
 
 // Add click effect for contact link
 document.addEventListener('click', function(e) {
@@ -148,3 +173,79 @@ document.addEventListener('keydown', function(e) {
         e.target.click();
     }
 });
+
+// Design configurations with their own content
+const designConfigs = [
+    {
+        name: 'default',
+        className: '',
+        content: `
+            <div class="name">jules beaugrand</div>
+            <div class="title">product designer</div>
+            <div class="info-item">live in france</div>
+            <div class="info-item">speaking: french & english</div>
+            <div class="info-item contact">
+                contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
+            </div>
+        `
+    },
+    {
+        name: 'discord',
+        className: 'design1',
+        content: `
+            <div class="discord-header">
+                <div class="discord-avatar"></div>
+                <div class="discord-content">
+                    <div class="discord-user-info">
+                        <span class="discord-username">Jules Beaugrand</span>
+                        <span class="discord-timestamp">Today at 00:00</span>
+                    </div>
+                    <div class="discord-message">
+                        <strong>product designer</strong> based in france 🇫🇷<br>
+                        speaking: french & english<br>
+                        contact: <a href="mailto:djeel@proton.me">djeel@proton.me</a>
+                    </div>
+                </div>
+            </div>
+        `
+    }
+];
+
+// Functionality to change card design on left mouse click
+const card = document.querySelector('.central-card');
+const portfolioContent = document.getElementById('portfolio-content');
+let currentDesignIndex = 0;
+
+function switchDesign() {
+    const currentConfig = designConfigs[currentDesignIndex];
+    const nextIndex = (currentDesignIndex + 1) % designConfigs.length;
+    const nextConfig = designConfigs[nextIndex];
+    
+    console.log('Design switched to:', nextConfig.name);
+    
+    // Remove current design class
+    if (currentConfig.className) {
+        card.classList.remove(currentConfig.className);
+    }
+    
+    // Add new design class
+    if (nextConfig.className) {
+        card.classList.add(nextConfig.className);
+    }
+    
+    // Update content
+    portfolioContent.innerHTML = nextConfig.content;
+    
+    // Update index
+    currentDesignIndex = nextIndex;
+}
+
+if (card && portfolioContent) {
+    card.addEventListener('click', (event) => {
+        if (event.button === 0) { // Left mouse button
+            switchDesign();
+        }
+    });
+} else {
+    console.error('Card or content element not found');
+}
