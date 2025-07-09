@@ -197,13 +197,14 @@ const designConfigs = [
                 <div class="discord-avatar"></div>
                 <div class="discord-content">
                     <div class="discord-user-info">
-                        <span class="discord-username">Jules Beaugrand</span>
+                        <span class="discord-username">djeel</span>
                         <span class="discord-timestamp">Today at 00:00</span>
                     </div>
                     <div class="discord-message">
-                        <strong>product designer</strong> based in france 🇫🇷<br>
-                        speaking: french & english<br>
-                        contact: <a href="mailto:djeel@proton.me">djeel@proton.me</a>
+                        i'm a <strong>product designer</strong>
+                        <br>based in france 🇫🇷<br>
+                        and i speak french & english<br>
+                        hire me at <a href="mailto:djeel@proton.me">djeel@proton.me</a>
                     </div>
                 </div>
             </div>
