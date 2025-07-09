@@ -33,12 +33,12 @@ function loadPortfolioContent() {
     
     // Static content for GitHub Pages
     const content = `
-        <div class="name">jules beaugrand</div>
-        <div class="title">product designer</div>
-        <div class="info-item">live in france</div>
-        <div class="info-item">speaking: french & english</div>
-        <div class="info-item contact">
-            contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
+        <div class="name">Jules BEAUGRAND</div>
+        <div class="title">Product Designer</div>
+        <div class="info-item">Live in France</div>
+        <div class="info-item">Speaking: French & English</div>
+        <div class="info-item Contact">
+            Contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
         </div>
     `;
     
@@ -195,11 +195,11 @@ const designConfigs = [
         name: 'default',
         className: '',
         content: `
-            <div class="name">jules beaugrand</div>
-            <div class="title">product designer</div>
-            <div class="info-item">live in france</div>
-            <div class="info-item">speaking: french & english</div>
-            <div class="info-item contact">
+            <div class="name">Jules Beaugrand</div>
+            <div class="title">Product Designer</div>
+            <div class="info-item">Live in france</div>
+            <div class="info-item">Speaking: french & english</div>
+            <div class="info-item Contact">
                 contact: <a href="mailto:djeel@proton.me" class="contact-link">djeel@proton.me</a>
             </div>
         `
@@ -216,9 +216,9 @@ const designConfigs = [
                         <span class="discord-timestamp">Today at 00:00</span>
                     </div>
                     <div class="discord-message">
-                        i'm a <strong>product designer</strong>
-                        <br>based in france 🇫🇷<br>
-                        and i speak french & english<br>
+                        I'm a <strong>Product Designer</strong>
+                        <br>based in France 🇫🇷<br>
+                        and I speak French & English<br>
                         hire me at <a href="mailto:djeel@proton.me">djeel@proton.me</a>
                     </div>
                 </div>
