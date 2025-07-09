@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jules Beaugrand - Product Designer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-line"></div>
+            <div class="loader-text">Loading</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content hidden">
+        <div class="container">
+            <div class="portfolio-card">
+                <div id="portfolio-content"
+                     hx-get="/portfolio-content" 
+                     hx-trigger="intersect once">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
