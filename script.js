@@ -116,16 +116,21 @@ if (portfolioCard) {
         const targetRotateX = (y - centerY) / 30;
         const targetRotateY = (centerX - x) / 30;
         
-        // Lissage de l'effet de souris
-        currentRotateX += (targetRotateX - currentRotateX) * 0.1;
-        currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+        // Détection du design actuel
+        const currentCard = portfolioCard.closest('.central-card');
+        
+        // Lissage de l'effet de souris - plus rapide pour Discord
+        const smoothness = currentCard && currentCard.classList.contains('design1') ? 0.2 : 0.1;
+        
+        currentRotateX += (targetRotateX - currentRotateX) * smoothness;
+        currentRotateY += (targetRotateY - currentRotateY) * smoothness;
         
         // Effet shiny - position de la souris en pourcentage
         const mouseXPercent = (x / rect.width) * 100;
         const mouseYPercent = (y / rect.height) * 100;
         
-        // Applique l'effet shiny seulement sur le design par défaut
-        if (!portfolioCard.closest('.central-card').classList.contains('design1')) {
+        // Applique l'effet shiny sur le design par défaut et GANGUI
+        if (!currentCard || !currentCard.classList.contains('design1')) {
             portfolioCard.style.setProperty('--mouse-x', `${mouseXPercent}%`);
             portfolioCard.style.setProperty('--mouse-y', `${mouseYPercent}%`);
         }
@@ -219,6 +224,30 @@ const designConfigs = [
                 </div>
             </div>
         `
+    },
+    {
+        name: 'gangui',
+        className: 'design2',
+        content: `
+            <div class="bank-header">
+                <div class="bank-logo">GANGUI</div>
+                <div class="bank-chip"></div>
+            </div>
+            <div class="bank-number">4532 **** **** 2891</div>
+            <div class="bank-info">
+                <div class="bank-holder">
+                    <div class="bank-label">Card Holder</div>
+                    <div class="bank-name">Jules Beaugrand</div>
+                    <div class="bank-title">Product Designer</div>
+                    <div class="bank-contact">📧 <a href="mailto:djeel@proton.me">djeel@proton.me</a></div>
+                </div>
+                <div class="bank-expiry">
+                    <div class="bank-label">Valid Thru</div>
+                    <div class="bank-date">07/29</div>
+                    <div class="bank-valid">France 🇫🇷</div>
+                </div>
+            </div>
+        `
     }
 ];
 
@@ -242,9 +271,11 @@ function switchDesign() {
     // Add new design class
     if (nextConfig.className) {
         card.classList.add(nextConfig.className);
-        // Reset shiny effect variables for non-default designs
-        portfolioCard.style.removeProperty('--mouse-x');
-        portfolioCard.style.removeProperty('--mouse-y');
+        // Reset shiny effect variables only for Discord design
+        if (nextConfig.className === 'design1') {
+            portfolioCard.style.removeProperty('--mouse-x');
+            portfolioCard.style.removeProperty('--mouse-y');
+        }
     }
     
     // Update content

@@ -173,9 +173,35 @@ body {
     opacity: 1;
 }
 
-/* Hide shiny effect on Discord design */
+/* Hide shiny effect only on Discord design */
 .central-card.design1::before {
     display: none;
+}
+
+/* Ensure GANGUI design can use the main shiny effect */
+.central-card.design2::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.05) 40%,
+        transparent 60%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+    z-index: 3;
+}
+
+.central-card.design2:hover::before {
+    opacity: 1;
 }
 
 
@@ -230,7 +256,7 @@ body {
     padding: 24px;
     color: #dcddde;
     font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    box-shadow: 0 8px 16px rgba(54, 57, 63, 0.6);
+    box-shadow: none !important;
 }
 
 .central-card.design1 .discord-header {
@@ -296,6 +322,222 @@ body {
     text-decoration: underline;
 }
 
+/* Discord Light Theme on Hover */
+.central-card.design1:hover {
+    background: #ffffff;
+}
+
+.central-card.design1:hover .discord-username {
+    color: #060607;
+}
+
+.central-card.design1:hover .discord-timestamp {
+    color: #747f8d;
+}
+
+.central-card.design1:hover .discord-message {
+    color: #2e3338;
+}
+
+.central-card.design1:hover .discord-message strong {
+    color: #060607;
+}
+
+.central-card.design1:hover .discord-message a {
+    color: #0066cc;
+}
+
+.central-card.design1:hover .discord-avatar {
+    background: #d6405b;
+    box-shadow: 0 2px 8px rgba(214, 64, 91, 0.3);
+}
+
+/* Smooth transitions for Discord theme switch */
+.central-card.design1 {
+    transition: background 0.3s ease;
+    will-change: background;
+    box-shadow: none !important; /* Remove default box-shadow on Discord design */
+}
+
+.central-card.design1 .discord-username {
+    transition: color 0.3s ease;
+    will-change: color;
+}
+
+.central-card.design1 .discord-timestamp {
+    transition: color 0.3s ease;
+    will-change: color;
+}
+
+.central-card.design1 .discord-message {
+    transition: color 0.3s ease;
+    will-change: color;
+}
+
+.central-card.design1 .discord-message strong {
+    transition: color 0.3s ease;
+    will-change: color;
+}
+
+.central-card.design1 .discord-message a {
+    transition: color 0.3s ease;
+    will-change: color;
+}
+
+.central-card.design1 .discord-avatar {
+    transition: background 0.3s ease;
+    will-change: background;
+}
+
+/* GANGUI Bank Card Design */
+.central-card.design2 {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: none;
+    border-radius: 16px;
+    padding: 32px;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+}
+
+.central-card.design2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(214, 64, 91, 0.1) 0%, 
+        transparent 50%, 
+        rgba(214, 64, 91, 0.05) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.central-card.design2 .bank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.central-card.design2 .bank-logo {
+    font-size: clamp(20px, 4vw, 24px);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.central-card.design2 .bank-chip {
+    width: 32px;
+    height: 24px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e  100%);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.central-card.design2 .bank-chip::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+    border-radius: 2px;
+}
+
+.central-card.design2 .bank-number {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(14px, 3vw, 18px);
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.central-card.design2 .bank-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+}
+
+.central-card.design2 .bank-holder {
+    flex: 1;
+}
+
+.central-card.design2 .bank-label {
+    font-size: clamp(8px, 1.5vw, 10px);
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.central-card.design2 .bank-name {
+    font-size: clamp(12px, 2.5vw, 14px);
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.central-card.design2 .bank-title {
+    font-size: clamp(10px, 2vw, 12px);
+    color: #d6405b;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.central-card.design2 .bank-contact {
+    font-size: clamp(9px, 1.8vw, 11px);
+    color: #cccccc;
+    margin-top: 4px;
+}
+
+.central-card.design2 .bank-contact a {
+    color: #d6405b;
+    text-decoration: none;
+}
+
+.central-card.design2 .bank-contact a:hover {
+    filter: brightness(1.2);
+}
+
+.central-card.design2 .bank-expiry {
+    text-align: right;
+}
+
+.central-card.design2 .bank-date {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(11px, 2.2vw, 13px);
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.central-card.design2 .bank-valid {
+    font-size: clamp(8px, 1.5vw, 10px);
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .portfolio-card {
@@ -316,6 +558,19 @@ body {
     
     .loader-line {
         width: 150px;
+    }
+    
+    .central-card.design2 {
+        padding: 24px 20px;
+        min-height: 180px;
+    }
+    
+    .central-card.design2 .bank-header {
+        margin-bottom: 20px;
+    }
+    
+    .central-card.design2 .bank-number {
+        margin-bottom: 16px;
     }
 }
 
