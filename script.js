@@ -120,6 +120,16 @@ if (portfolioCard) {
         currentRotateX += (targetRotateX - currentRotateX) * 0.1;
         currentRotateY += (targetRotateY - currentRotateY) * 0.1;
         
+        // Effet shiny - position de la souris en pourcentage
+        const mouseXPercent = (x / rect.width) * 100;
+        const mouseYPercent = (y / rect.height) * 100;
+        
+        // Applique l'effet shiny seulement sur le design par défaut
+        if (!portfolioCard.closest('.central-card').classList.contains('design1')) {
+            portfolioCard.style.setProperty('--mouse-x', `${mouseXPercent}%`);
+            portfolioCard.style.setProperty('--mouse-y', `${mouseYPercent}%`);
+        }
+        
         // Applique la transformation si pas en animation de fade-in
         if (!isAnimating) {
             portfolioCard.style.transform = `perspective(1000px) translateY(0px) scale(1) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
@@ -232,6 +242,9 @@ function switchDesign() {
     // Add new design class
     if (nextConfig.className) {
         card.classList.add(nextConfig.className);
+        // Reset shiny effect variables for non-default designs
+        portfolioCard.style.removeProperty('--mouse-x');
+        portfolioCard.style.removeProperty('--mouse-y');
     }
     
     // Update content
