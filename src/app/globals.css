@@ -1,0 +1,77 @@
+/* ── Light theme (default) ─────────────────────────────── */
+:root {
+  --color-bg:      #F7F5F2;
+  --color-ink:     #0C0B10;
+  --color-accent:  #7C3AED;
+  --color-muted:   #7A7585;
+  --color-border:  #E0DBE8;
+  --color-surface: #EDE9F5;
+
+  --text-hero:  clamp(3rem, 0.5rem + 7vw, 9rem);
+  --text-h2:    clamp(2rem, 0.25rem + 4.5vw, 5.5rem);
+  --text-h3:    clamp(1.25rem, 0.25rem + 2.5vw, 2.5rem);
+  --text-body:  clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
+  --text-small: 0.875rem;
+  --text-label: 0.7rem;
+
+  --space-section: clamp(5rem, 3rem + 7vw, 12rem);
+  --space-gutter:  clamp(1.25rem, 2vw, 2.5rem);
+  --nav-height:    68px;
+
+  --ease-expo:      cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast:  200ms;
+  --duration-normal: 400ms;
+  --max-width: 1380px;
+}
+
+/* ── Dark theme ─────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg:      #0D0B14;
+  --color-ink:     #EDE9F7;
+  --color-accent:  #A78BFA;
+  --color-muted:   #6B6580;
+  --color-border:  #1E1A2C;
+  --color-surface: #151220;
+}
+
+/* ── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; color-scheme: light dark; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-display), 'Syne', sans-serif;
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { font-weight: 800; line-height: 1.0; letter-spacing: -0.035em; }
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-gutter);
+}
+
+.label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
