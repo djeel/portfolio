@@ -12,11 +12,10 @@ export default function Hero() {
     import('gsap').then(({ gsap }) => {
       if (!mounted) return
       ctx = gsap.context(() => {
-        gsap.from('[data-h]', {
-          y: 50, opacity: 0, duration: 0.9, stagger: 0.1,
-          ease: 'power3.out', delay: 0.1,
-          clearProps: 'opacity,transform',
-        })
+        gsap.fromTo('[data-h]',
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: 'power3.out', delay: 0.1 }
+        )
       }, ref)
     })
     return () => {

@@ -60,6 +60,10 @@ export const projects: Project[] = [
     description: 'A website for the Gangui Network Minecraft community server — giving an active gaming community a web home that matches their identity.',
     context: 'Gaming communities live and die by their presence. Gangui Network needed a clean, focused web home — not a generic gaming template.',
     challenge: 'Capturing the identity of a specific community without falling into generic gaming-website aesthetics.',
+    decisions: [
+      { title: 'Vanilla stack', detail: 'HTML, CSS, JavaScript — no framework. The site is mostly static with light interactivity. Adding a build tool would have been overhead without benefit.' },
+      { title: 'Community-first design', detail: 'Colors and tone were derived from the community identity, not from a generic gaming template. Every visual choice was validated against their existing branding.' },
+    ],
     stack: ['HTML', 'CSS', 'JavaScript'],
     results: 'Live at gangui.eu. Actively used by the community.',
     learnings: [
