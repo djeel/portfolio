@@ -12,7 +12,8 @@
   flex-direction: column;
   gap: 2.5rem;
 }
-.title { font-size: var(--text-h2); }
+.title { font-size: var(--text-hero); font-weight: 800; display: flex; flex-direction: column; }
+.title .reveal-line { display: block; overflow: hidden; overflow: clip; overflow-clip-margin: 0.4em; padding-bottom: 0.03em; }
 .email {
   font-size: clamp(1.25rem, 0.5rem + 3vw, 3rem);
   font-weight: 400;

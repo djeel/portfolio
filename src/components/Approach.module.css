@@ -1,4 +1,11 @@
-.section { padding: var(--space-section) 0; }
+.section {
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-alt);
+  position: relative;
+  overflow: hidden;
+}
+.glow { bottom: -28%; left: 24%; opacity: 0.1; }
 .inner {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -8,24 +15,40 @@
   gap: 3rem;
 }
 @media (min-width: 900px) {
-  .inner { grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .inner { grid-template-columns: 0.85fr 1.15fr; gap: clamp(3rem, 6vw, 7rem); align-items: start; }
+  .header { position: sticky; top: calc(var(--nav-height) + 3rem); }
 }
-.header { display: flex; flex-direction: column; gap: 1.25rem; }
-.title { font-size: var(--text-h2); font-weight: 800; }
+.header { display: flex; flex-direction: column; gap: 1.5rem; }
+.title { font-size: var(--text-h2); font-weight: 800; display: flex; flex-direction: column; }
+.title .reveal-line { display: block; overflow: hidden; overflow: clip; overflow-clip-margin: 0.4em; padding-bottom: 0.03em; }
 .lead { font-size: var(--text-body); color: var(--color-muted); line-height: 1.7; max-width: 40ch; }
+
 .list { list-style: none; border-top: 1px solid var(--color-border); }
 .item {
-  display: flex;
-  align-items: baseline;
-  gap: 1.5rem;
-  padding: 1.25rem 0;
+  display: block;
+  overflow: hidden;
   border-bottom: 1px solid var(--color-border);
+  transition: background var(--duration-fast) ease;
 }
-.num {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  color: var(--color-accent);
-  letter-spacing: 0.06em;
+.item > span {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+}
+.marker {
   flex-shrink: 0;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--duration-normal) var(--ease-expo);
 }
-.text { font-size: clamp(1rem, 0.3rem + 1.5vw, 1.3rem); font-weight: 600; }
+.item:hover .marker { width: 3rem; }
+.text {
+  font-size: clamp(1.15rem, 0.3rem + 2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  transition: transform var(--duration-normal) var(--ease-expo);
+}
+.item:hover .text { transform: translateX(0.5rem); }

@@ -1,27 +1,38 @@
 .footer {
   border-top: 1px solid var(--color-border);
-  padding: 3rem 0;
+  padding: clamp(3rem, 6vw, 6rem) 0 3rem;
   margin-top: var(--space-section);
 }
 .inner {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vw, 5rem);
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--space-gutter);
 }
+.wordmark {
+  font-size: clamp(4rem, 1rem + 16vw, 18rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  display: block;
+  transition: color var(--duration-normal) var(--ease-expo);
+}
+.dot { color: var(--color-accent); }
+
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
 .left { display: flex; flex-direction: column; gap: 0.25rem; }
-.name { font-size: 0.9375rem; font-weight: 700; }
 .sub { font-size: var(--text-small); color: var(--color-muted); }
 .right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-.email {
-  font-size: var(--text-small);
-  transition: color var(--duration-fast) ease;
-}
-.email:hover { color: var(--color-accent); }
+.email { font-size: var(--text-small); }
 .links { display: flex; gap: 1.5rem; font-size: var(--text-small); color: var(--color-muted); }
-.links a:hover { color: var(--color-ink); }
 .copy { font-size: var(--text-small); color: var(--color-muted); }

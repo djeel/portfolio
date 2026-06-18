@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { projects, getProject } from '@/lib/projects'
+import Reveal from '@/components/Reveal'
+import ParallaxImage from '@/components/ParallaxImage'
 import styles from './work.module.css'
 
 export async function generateStaticParams() {
@@ -25,31 +26,28 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   return (
     <article className={styles.article}>
       <header className={styles.header}>
-        <Link href="/#work" className={styles.back}>← Work</Link>
-        <div className={styles.headerContent}>
-          <span className={styles.projectNum + ' label'}>{project.number}</span>
-          <h1 className={styles.title}>{project.title}</h1>
-          <p className={styles.tagline}>{project.tagline}</p>
-          <div className={styles.meta}>
+        <Link href="/#work" className={`${styles.back} link-underline`}>← Work</Link>
+        <Reveal as="div" className={styles.headerContent} start="top 95%">
+          <h1 className={styles.title}>
+            <span className="reveal-line"><span>{project.title}</span></span>
+          </h1>
+          <p className={`${styles.tagline} reveal-up`}>{project.tagline}</p>
+          <div className={`${styles.meta} reveal-up`}>
             <div className={styles.metaItem}><span className="label">Year</span><span>{project.year}</span></div>
             <div className={styles.metaItem}><span className="label">Role</span><span>{project.role}</span></div>
             <div className={styles.metaItem}><span className="label">Category</span><span>{project.category}</span></div>
           </div>
-        </div>
+        </Reveal>
       </header>
 
       {/* Cover image */}
-      <div className={styles.coverWrap}>
-        <Image
-          src={project.coverImage}
-          alt={`${project.title} — screenshot`}
-          width={2493}
-          height={1259}
-          className={styles.coverImg}
-          priority
-          quality={85}
-        />
-      </div>
+      <ParallaxImage
+        src={project.coverImage}
+        alt={`${project.title} — screenshot`}
+        width={2493}
+        height={1259}
+        className={styles.coverWrap}
+      />
 
       <div className={styles.body}>
         <Section label="Context" content={project.context} />
@@ -84,7 +82,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
             <ol className={styles.learnings}>
               {project.learnings.map((l, i) => (
                 <li key={i} className={styles.learning}>
-                  <span className={styles.learningNum}>{String(i + 1).padStart(2, '0')}</span>
+                  <span className={styles.learnMarker} aria-hidden="true" />
                   <span>{l}</span>
                 </li>
               ))}
@@ -96,7 +94,6 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
       <div className={styles.nextProject}>
         <span className="label">Next Project</span>
         <Link href={`/work/${next.slug}`} className={styles.nextLink}>
-          <span className={styles.nextNum}>{next.number}</span>
           <span className={styles.nextTitle}>{next.title} →</span>
         </Link>
       </div>

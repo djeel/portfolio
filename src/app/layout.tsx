@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   description:
     'Building clear, useful, and ambitious web products. Between frontend, UI/UX, and product thinking.',
   metadataBase: new URL('https://djeel.org'),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png', sizes: '1000x1000' },
+    ],
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     title: 'djeel — Product-minded Creative Developer',
     description: 'Building clear, useful, and ambitious web products. Between frontend, UI/UX, and product thinking.',
@@ -49,11 +57,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=t||(p?'dark':'light');}catch(e){}})()`,
+            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');d.dataset.theme=t||'light';d.dataset.js='true';}catch(e){}})()`,
           }}
         />
       </head>
       <body>
+        <div className="grain" aria-hidden="true" />
         <LenisProvider>
           <Nav />
           <main>{children}</main>
