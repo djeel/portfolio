@@ -9,7 +9,9 @@ const decisionKeys: Record<string, string[]> = {
   murmur: ['rust', 'solidjs', 'postgresRedis', 'webrtc', 'e2ee'],
   undercover: ['fastapi', 'react'],
   gangui: ['vanilla', 'community'],
+  mcsounds: ['zeroBackend', 'mojangAssets', 'virtualizedGrid', 'floatingPlayer'],
   kime: ['stack', 'progression', 'design'],
+  polyagent: ['fastapiSse', 'mcpStdio', 'openaiApi', 'vanillaFrontend'],
 }
 
 export async function generateStaticParams() {

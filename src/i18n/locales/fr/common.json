@@ -160,6 +160,29 @@
         "Les contraintes (stack simple, vrais utilisateurs) sont productives — elles forcent des décisions ciblées."
       ]
     },
+    "mcsounds": {
+      "tagline": "Un lecteur web rapide et statique pour explorer, chercher et écouter tous les sons de Minecraft Java Edition.",
+      "category": "Outil · Frontend",
+      "role": "Design · Développement",
+      "description": "Une application web statique qui permet d'explorer, chercher et jouer tous les sons de Minecraft Java Edition directement depuis les serveurs de Mojang — aucun audio n'est commit ou redistribué.",
+      "context": "Minecraft contient des centaines de sons uniques, mais il n'y a pas de bon moyen de les parcourir en dehors du jeu. MC Sounds résout ce problème : recherche instantanée avec classement par pertinence, filtrage par catégorie, favoris, et un lecteur flottant avec gestion de file d'attente — le tout entièrement côté client, sans backend.",
+      "challenge": "L'audio de Minecraft est protégée par le droit d'auteur de Mojang et ne peut pas être redistribuée. L'application devait diffuser l'audio directement depuis le système de stocks à adressage par contenu de Mojang sans jamais stocker ni servir de fichiers .ogg, tout en restant rapide et réactive avec des centaines de sons.",
+      "decisions": {
+        "zeroBackend": "Zéro backend, 100% statique",
+        "zeroBackendDetail": "L'application entière est un build statique — pas de serveur, pas de base de données. Les métadonnées des sons sont un manifeste pré-généré associant les noms aux hashes SHA-1, résolus au runtime vers les URLs CDN de Mojang.",
+        "mojangAssets": "Le système d'assets de Mojang",
+        "mojangAssetsDetail": "Au lieu de commit de l'audio protégé par le droit d'auteur, l'application utilise le stockage officiel à adressage par contenu de Mojang. Chaque hash de son correspond à une URL sur resources.download.minecraft.net, diffusée via un élément audio.",
+        "virtualizedGrid": "Grille virtualisée + recherche instantanée",
+        "virtualizedGridDetail": "react-window alimente une grille virtualisée pour un défilement fluide à travers des centaines de sons. Le filtrage côté client avec classement par pertinence garde la recherche instantanée.",
+        "floatingPlayer": "Lecteur flottant avec file d'attente",
+        "floatingPlayerDetail": "Une barre de lecteur persistante avec lecture/pause, précédent/suivant, boucle, seek, et minimiser. Les utilisateurs peuvent constituer des files d'attente, réordonner par sélection, ou \"Tout lire\" depuis n'importe quel contexte."
+      },
+      "results": "Entièrement déployé sur Vercel. Recherche instantanée, lecteur flottant avec file d'attente, favoris persistants, thème clair/sombre, et téléchargement pour n'importe quel son. Workflow GitHub Actions pour le déploiement automatisé.",
+      "learnings": [
+        "Contourner les contraintes de droit d'auteur (pas de redistribution audio) a forcé une architecture créative qui s'est avérée plus simple et plus déployable qu'une approche backend.",
+        "Les listes virtualisées sont essentielles lors du rendu de centaines d'éléments — sans react-window, la grille serait bloquée au rendu initial."
+      ]
+    },
     "kime": {
       "tagline": "Un dashboard sportif gamifié qui transforme l'entraînement en habitude quotidienne.",
       "category": "Web · Produit · Gamification",
@@ -179,6 +202,29 @@
       "learnings": [
         "La gamification est un problème de design avant d'être un problème de code — la courbe de récompense compte plus que l'implémentation.",
         "Emprunter des mécaniques de rétention éprouvées est plus rapide et plus sûr que d'inventer un système de motivation de zéro."
+      ]
+    },
+    "polyagent": {
+      "tagline": "Agent conversationnel IA qui cherche des annonces sur LeBonCoin via Claude.",
+      "category": "IA · Outil · Full-stack",
+      "role": "Design · Développement · Architecture",
+      "description": "Un agent conversationnel qui comprend le langage naturel, pose des questions avec des choix cliquables, puis fouille les annonces LeBonCoin et présente les résultats en cartes — le tout en streaming SSE.",
+      "context": "LeBonCoin n'a pas de bonne recherche conversationnelle. On tape des mots-clés, on scrolle le bruit, et on rate des bonnes affaires. PolyAgent vous laisse discuter naturellement — \"je cherche un appartement 3 pièces à Lyon sous 800€\" — et l'agent affine, cherche, et vous montre exactement ce qui correspond.",
+      "challenge": "Connecter un agent LLM à un vrai backend de recherche via MCP stdio, gérer les réponses en streaming avec des appels d'outils, et rendre le flux conversationnel naturel alors que l'agent alterne entre poser des questions et récupérer des résultats.",
+      "decisions": {
+        "fastapiSse": "FastAPI + streaming SSE",
+        "fastapiSseDetail": "Les Server-Sent Events maintiennent la conversation en temps réel. Le backend streaming les tokens LLM et les résultats d'outils au fur et à mesure — pas de polling, pas de complexité WebSocket.",
+        "mcpStdio": "MCP stdio pour LeBonCoin",
+        "mcpStdioDetail": "L'agent parle à leboncoin-mcp via JSON-RPC over stdio — une séparation nette entre la logique agent et le backend de recherche. Facile à remplacer pour d'autres plateformes.",
+        "openaiApi": "API compatible OpenAI",
+        "openaiApiDetail": "Fonctionne avec n'importe quel endpoint compatible OpenAI (9router, Gemini, Claude). Le tool calling est géré au niveau de l'API — l'agent définit les outils et le LLM décide quand les appeler.",
+        "vanillaFrontend": "Frontend vanilla + i18n",
+        "vanillaFrontendDetail": "Pas de surcoût framework. HTML/CSS/JS avec marked.js pour le rendu Markdown. Trilingue (FR/EN/ES) dès le départ avec un simple objet de locale."
+      },
+      "results": "Agent conversationnel fonctionnel avec recherche en temps réel, choix cliquables, sauvegarde de favoris (localStorage), sessions persistantes et support trilingue. Déployé localement, extensible à toute API compatible OpenAI.",
+      "learnings": [
+        "MCP stdio est une abstraction propre pour connecter des LLMs à des outils externes — le protocole est simple et la séparation des responsabilités est réelle.",
+        "Le streaming SSE rend l'IA conversationnelle instantanée — l'utilisateur voit les tokens apparaître au fur et à mesure que le modèle les génère, pas après une réponse complète."
       ]
     }
   },

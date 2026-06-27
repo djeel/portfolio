@@ -160,6 +160,29 @@
         "Constraints (simple stack, real users) are productive — they force focused decisions."
       ]
     },
+    "mcsounds": {
+      "tagline": "A fast, static web player to explore, search, and listen to every Minecraft Java Edition sound.",
+      "category": "Tool · Frontend",
+      "role": "Design · Development",
+      "description": "A static web app that lets you explore, search, and play every Minecraft Java Edition sound directly from Mojang's servers — no audio is committed or redistributed.",
+      "context": "Minecraft has hundreds of unique sounds, but there's no good way to browse them outside the game. MC Sounds solves that: instant search with relevance ranking, category filtering, favorites, and a floating player with queue management — all running entirely client-side with zero backend.",
+      "challenge": "Minecraft's audio is copyrighted by Mojang and must not be redistributed. The app had to stream audio directly from Mojang's content-addressed asset system without ever storing or serving .ogg files, while still feeling fast and responsive with hundreds of sounds.",
+      "decisions": {
+        "zeroBackend": "Zero backend, 100% static",
+        "zeroBackendDetail": "The entire app is a static build — no server, no database. Sound metadata is a pre-generated manifest mapping names to SHA-1 hashes, resolved at runtime to Mojang's CDN URLs.",
+        "mojangAssets": "Mojang's asset system",
+        "mojangAssetsDetail": "Instead of committing copyrighted audio, the app uses Mojang's official content-addressed storage. Each sound hash maps to a URL on resources.download.minecraft.net, streamed through an audio element.",
+        "virtualizedGrid": "Virtualized grid + instant search",
+        "virtualizedGridDetail": "react-window powers a virtualized grid for smooth scrolling through hundreds of sounds. Client-side filtering with relevance ranking keeps search instant.",
+        "floatingPlayer": "Floating player with queue",
+        "floatingPlayerDetail": "A persistent player bar with play/pause, next/previous, loop, seek, and minimize. Users can build queues, reorder by selecting, or \"Play all\" from any context."
+      },
+      "results": "Fully deployed on Vercel. Instant search, floating player with queue, persistent favorites, light/dark theme, and download for any sound. GitHub Actions workflow for automated deployment.",
+      "learnings": [
+        "Working around copyright constraints (no audio redistribution) forced a creative architecture that ended up being simpler and more deployable than a backend approach.",
+        "Virtualized lists are essential when rendering hundreds of items — without react-window, the grid would choke on initial render."
+      ]
+    },
     "kime": {
       "tagline": "A gamified sports dashboard that turns training into a daily habit.",
       "category": "Web · Product · Gamification",
@@ -179,6 +202,29 @@
       "learnings": [
         "Gamification is a design problem before it is a code problem — the reward curve matters more than the implementation.",
         "Borrowing proven retention mechanics is faster and safer than inventing a motivation system from scratch."
+      ]
+    },
+    "polyagent": {
+      "tagline": "Conversational AI agent that searches LeBonCoin via Claude.",
+      "category": "AI · Tool · Full-stack",
+      "role": "Design · Development · Architecture",
+      "description": "A conversational agent that understands natural language, asks clarifying questions with clickable choices, then searches LeBonCoin listings and presents results as cards — all through SSE streaming.",
+      "context": "LeBonCoin has no good conversational search. You type keywords, scroll through noise, and miss deals. PolyAgent lets you chat naturally — \"I'm looking for a 3-room apartment in Lyon under 800€\" — and the agent refines, searches, and shows you exactly what matches.",
+      "challenge": "Connecting an LLM agent to a real search backend via MCP stdio, handling streaming responses with tool calls, and making the conversational flow feel natural while the agent toggles between asking questions and fetching results.",
+      "decisions": {
+        "fastapiSse": "FastAPI + SSE streaming",
+        "fastapiSseDetail": "Server-Sent Events keep the conversation flowing in real time. The backend streams LLM tokens and tool results as they arrive — no polling, no WebSocket complexity.",
+        "mcpStdio": "MCP stdio for LeBonCoin",
+        "mcpStdioDetail": "The agent talks to leboncoin-mcp via JSON-RPC over stdio — a clean separation between the agent logic and the search backend. Easy to swap for other platforms.",
+        "openaiApi": "OpenAI-compatible API",
+        "openaiApiDetail": "Works with any OpenAI-compatible endpoint (9router, Gemini, Claude). Tool calling is handled at the API level — the agent just defines tools and the LLM decides when to call them.",
+        "vanillaFrontend": "Vanilla frontend + i18n",
+        "vanillaFrontendDetail": "No framework overhead. HTML/CSS/JS with marked.js for Markdown rendering. Trilingual (FR/EN/ES) from day one with a simple locale object."
+      },
+      "results": "Working conversational agent with real-time search, clickable choices, favorite saves (localStorage), persistent sessions, and trilingual support. Deployed locally, extensible to any OpenAI-compatible API.",
+      "learnings": [
+        "MCP stdio is a clean abstraction for connecting LLMs to external tools — the protocol is simple and the separation of concerns is real.",
+        "SSE streaming makes conversational AI feel instant — the user sees tokens appear as the model generates them, not after a full response."
       ]
     }
   },
