@@ -5,9 +5,11 @@ import Magnetic from './Magnetic'
 import SpotlightText from './SpotlightText'
 import InteractiveDots from './InteractiveDots'
 import AmbientGlow from './AmbientGlow'
+import { useI18n } from '@/i18n/I18nContext'
 import styles from './Hero.module.css'
 
 export default function Hero() {
+  const { locale, t } = useI18n()
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -50,7 +52,6 @@ export default function Hero() {
     }
   }, [])
 
-  // Scroll-driven shatter: headline dissolves into grain on the way down
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const section = ref.current
@@ -96,17 +97,17 @@ export default function Hero() {
       </AmbientGlow>
       <div className={`${styles.inner} above`}>
         <h1 className={styles.h1} data-hero-h1>
-          <span className={styles.line} data-hero-line><span>Building web</span></span>
+          <span className={styles.line} data-hero-line><span>{t.hero.line1}</span></span>
           <span className={styles.line} data-hero-line>
             <span>
-              products that{' '}
+              {t.hero.line2Part1}{' '}
               <SpotlightText
                 as="em"
                 className={styles.mark}
                 base="var(--color-accent)"
                 spot="var(--color-spot)"
               >
-                matter
+                {t.hero.line2Highlight}
               </SpotlightText>
             </span>
           </span>
@@ -114,24 +115,22 @@ export default function Hero() {
 
         <div className={styles.bottom}>
           <p className={styles.sub} data-hero-fade>
-            Self-taught developer working between frontend, UI/UX, and product
-            thinking — building things that are clear, useful, and ambitious.
+            {t.hero.subtitle}
           </p>
           <div className={styles.ctas} data-hero-fade>
             <Magnetic>
-              <Link href="#work" className={styles.cta}>
-                <span>Selected work</span>
+              <Link href={`/${locale}/#work`} className={styles.cta}>
+                <span>{t.hero.selectedWork}</span>
                 <span className={styles.ctaArrow} aria-hidden="true">↓</span>
               </Link>
             </Magnetic>
-            <Link href="/contact" className={`${styles.secondary} link-underline`}>
-              Let&apos;s talk →
+            <Link href={`/${locale}/contact`} className={`${styles.secondary} link-underline`}>
+              {t.hero.letsTalk}
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Scroll-driven shatter filter for the headline */}
       <svg className={styles.svgDefs} aria-hidden="true" focusable="false">
         <filter id="heroShatter" x="-30%" y="-30%" width="160%" height="160%">
           <feTurbulence

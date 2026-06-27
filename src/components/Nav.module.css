@@ -98,3 +98,35 @@
 .cta:hover { background: var(--color-accent); color: #fff; }
 .cta span { transition: transform var(--duration-normal) var(--ease-spring); }
 .cta:hover span { transform: translateX(4px); }
+
+/* Language switcher */
+.langSwitch {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 60%, transparent);
+}
+.langBtn {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+.langBtn:hover { color: var(--color-ink); }
+.langActive {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+.langActive:hover { color: var(--color-bg); }
+@media (max-width: 540px) { .langSwitch { display: none; } }

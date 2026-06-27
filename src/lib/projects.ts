@@ -32,6 +32,7 @@ export const projects: Project[] = [
       "Rust's strict compiler is the point — it catches a class of bugs before they reach production.",
       'Building at this scope solo requires ruthless scope management and the discipline to ship something imperfect.',
     ],
+    url: 'https://murmur.pm',
   },
   {
     slug: 'undercover', coverImage: '/work/undercover-cover.png', number: '02', title: 'Undercover',
@@ -51,6 +52,7 @@ export const projects: Project[] = [
       'Game state machines are a useful mental model for any complex UI with multiple modes.',
       'WebSocket-based UX requires careful thought about latency and reconnection states.',
     ],
+    url: 'https://djeel.github.io/undercover',
   },
   {
     slug: 'gangui', coverImage: '/work/gangui-cover.png', number: '03', title: 'Gangui Network',
@@ -71,6 +73,27 @@ export const projects: Project[] = [
       'Constraints (simple stack, real users) are productive — they force focused decisions.',
     ],
     url: 'https://gangui.eu',
+  },
+  {
+    slug: 'kime', coverImage: '', number: '04', title: 'Kime',
+    tagline: 'A gamified sports dashboard that turns training into a daily habit.',
+    category: 'Web · Product · Gamification', year: '2024',
+    role: 'Design · Development', color: '#5AF1C4', textColor: '#06231A',
+    description: 'A Duolingo-inspired fitness dashboard: daily streaks, XP and levels, exercise tracking with progress stats, and goal reminders — designed to make consistent training feel rewarding.',
+    context: 'Fitness apps are good at logging workouts but bad at keeping people coming back. Duolingo cracked daily retention for language learning through streaks, XP, and gentle pressure. Kime applies that same psychology to sport — turning training into a habit loop instead of a chore.',
+    challenge: 'Gamification is easy to get wrong: too much and it feels gimmicky, too little and it does nothing. The hard part was designing a progression system — streaks, XP, levels — that genuinely motivates without punishing missed days, while keeping the dashboard readable at a glance.',
+    decisions: [
+      { title: 'React + TypeScript + Vite', detail: 'A fast SPA foundation: Vite for instant HMR, TypeScript for confidence in the state logic that drives streaks, XP, and level thresholds.' },
+      { title: 'Streak, XP & level system', detail: 'The motivation core. Daily streaks reward consistency, XP and levels visualize long-term progress, and missed days soften the streak instead of resetting everything — borrowing Duolingo retention psychology.' },
+      { title: 'TailwindCSS design system', detail: 'A utility-driven system keeps the dashboard dense but readable, with clear hierarchy between today goals, progress stats, and reminders.' },
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
+    results: 'A working gamified dashboard: daily streaks, XP and levels, exercise tracking with progress stats, and goal reminders. Deployed on GitHub Pages.',
+    learnings: [
+      'Gamification is a design problem before it is a code problem — the reward curve matters more than the implementation.',
+      'Borrowing proven retention mechanics is faster and safer than inventing a motivation system from scratch.',
+    ],
+    url: 'https://djeel.github.io/kime',
   },
 ]
 

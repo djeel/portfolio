@@ -1,16 +1,12 @@
+'use client'
 import Reveal from './Reveal'
 import AmbientGlow from './AmbientGlow'
+import { useI18n } from '@/i18n/I18nContext'
 import styles from './Approach.module.css'
 
-const items = [
-  'Understand before building',
-  'Test early, iterate often',
-  'Durable solutions over patches',
-  'Onboarding, metrics, and scalability from day one',
-  'Learn by building, not by watching',
-]
-
 export default function Approach() {
+  const { t } = useI18n()
+
   return (
     <section className={styles.section}>
       <AmbientGlow>
@@ -18,17 +14,17 @@ export default function Approach() {
       </AmbientGlow>
       <Reveal className={`${styles.inner} above`}>
         <div className={styles.header}>
-          <span className={`${styles.sectionLabel} label reveal-up`}>Approach</span>
+          <span className={`${styles.sectionLabel} label reveal-up`}>{t.approach.label}</span>
           <h2 className={styles.title}>
-            <span className="reveal-line"><span>How I</span></span>
-            <span className="reveal-line"><span>work.</span></span>
+            <span className="reveal-line"><span>{t.approach.titleLine1}</span></span>
+            <span className="reveal-line"><span>{t.approach.titleLine2}</span></span>
           </h2>
           <p className={`${styles.lead} reveal-up`}>
-            I don&apos;t start from a template.<br />I start from the problem.
+            {t.approach.lead}
           </p>
         </div>
         <ol className={styles.list}>
-          {items.map((item, i) => (
+          {t.approach.items.map((item: string, i: number) => (
             <li key={i} className={`${styles.item} reveal-line`}>
               <span>
                 <span className={styles.marker} aria-hidden="true" />

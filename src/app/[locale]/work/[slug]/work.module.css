@@ -25,6 +25,16 @@
 }
 .metaItem { display: flex; flex-direction: column; gap: 0.4rem; }
 .metaItem span:last-child { font-size: var(--text-small); }
+.liveLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--text-small);
+  color: var(--color-accent);
+  transition: color var(--duration-fast) ease;
+  margin-top: 0.5rem;
+}
+.liveLink:hover { color: var(--color-ink); }
 
 /* Cover image (parallax) */
 .coverWrap {
@@ -33,6 +43,15 @@
   overflow: hidden;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+}
+.coverPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(3rem, 9vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 /* Body */

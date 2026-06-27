@@ -4,9 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { projects } from '@/lib/projects'
 import Reveal from './Reveal'
+import { useI18n } from '@/i18n/I18nContext'
 import styles from './SelectedWork.module.css'
 
 export default function SelectedWork() {
+  const { locale, t } = useI18n()
   const [active, setActive] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
@@ -40,7 +42,6 @@ export default function SelectedWork() {
         }
         list.addEventListener('pointermove', onMove)
 
-        // Preview grows the further down the section you scroll
         const st = ScrollTrigger.create({
           trigger: section,
           start: 'top bottom',
@@ -65,7 +66,6 @@ export default function SelectedWork() {
     }
   }, [])
 
-  // "built" reconstructs itself from grain when the section scrolls into view
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const section = sectionRef.current
@@ -98,7 +98,7 @@ export default function SelectedWork() {
               delay: 0.2,
               onUpdate: () => disp.setAttribute('scale', o.v.toFixed(1)),
               onComplete: () => {
-                word.style.filter = '' // crisp once rebuilt
+                word.style.filter = ''
               },
             })
           },
@@ -118,13 +118,13 @@ export default function SelectedWork() {
       <Reveal className={styles.inner}>
         <div className={styles.header}>
           <span className={`${styles.sectionLabel} label reveal-up`}>
-            Selected Work — {String(projects.length).padStart(2, '0')}
+            {t.selectedWork.label} {String(projects.length).padStart(2, '0')}
           </span>
           <h2 className={styles.title}>
             <span className="reveal-line">
               <span>
-                Things I&apos;ve{' '}
-                <span className={styles.build} data-build>built.</span>
+                {t.selectedWork.titlePart1}{' '}
+                <span className={styles.build} data-build>{t.selectedWork.titlePart2}</span>
               </span>
             </span>
           </h2>
@@ -141,29 +141,31 @@ export default function SelectedWork() {
             previewRef.current?.style.setProperty('--preview-vis', '0')
           }}
         >
-          {projects.map((p, i) => (
-            <div className={`${styles.rowWrap} reveal-line`} key={p.slug}>
-              <Link
-                href={`/work/${p.slug}`}
-                className={styles.item}
-                onPointerEnter={() => setActive(i)}
-                data-dim={active !== null && active !== i ? 'true' : undefined}
-              >
-                <span className={styles.wash} aria-hidden="true" />
-                <span className={styles.titleCell}>
-                  <span className={styles.name}>{p.title}</span>
-                  <span className={styles.tag}>{p.tagline}</span>
-                </span>
-                <span className={styles.cat}>{p.category}</span>
-                <span className={styles.year}>{p.year}</span>
-                <span className={styles.arrow} aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          ))}
+          {projects.map((p, i) => {
+            const projectT = t.projects[p.slug as keyof typeof t.projects]
+            return (
+              <div className={`${styles.rowWrap} reveal-line`} key={p.slug}>
+                <Link
+                  href={`/${locale}/work/${p.slug}`}
+                  className={styles.item}
+                  onPointerEnter={() => setActive(i)}
+                  data-dim={active !== null && active !== i ? 'true' : undefined}
+                >
+                  <span className={styles.wash} aria-hidden="true" />
+                  <span className={styles.titleCell}>
+                    <span className={styles.name}>{p.title}</span>
+                    <span className={styles.tag}>{projectT.tagline}</span>
+                  </span>
+                  <span className={styles.cat}>{projectT.category}</span>
+                  <span className={styles.year}>{p.year}</span>
+                  <span className={styles.arrow} aria-hidden="true">↗</span>
+                </Link>
+              </div>
+            )
+          })}
         </div>
       </Reveal>
 
-      {/* Cursor-following floating preview */}
       <div
         className={styles.preview}
         ref={previewRef}
@@ -176,12 +178,20 @@ export default function SelectedWork() {
             className={styles.previewImg}
             style={{ opacity: active === i ? 1 : 0 }}
           >
-            <Image src={p.coverImage} alt="" width={680} height={358} quality={75} />
+            {p.coverImage ? (
+              <Image src={p.coverImage} alt="" width={680} height={358} quality={75} />
+            ) : (
+              <span
+                className={styles.previewPlaceholder}
+                style={{ background: p.color, color: p.textColor }}
+              >
+                {p.title}
+              </span>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Grain reconstruction filter for the "built" word */}
       <svg className={styles.svgDefs} aria-hidden="true" focusable="false">
         <filter id="buildFilter" x="-60%" y="-60%" width="220%" height="220%">
           <feTurbulence

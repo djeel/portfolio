@@ -1,8 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useI18n } from '@/i18n/I18nContext'
 import styles from './ThemeToggle.module.css'
 
 export default function ThemeToggle() {
+  const { t } = useI18n()
   const [dark, setDark] = useState(false)
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function ThemeToggle() {
   return (
     <button onClick={toggle} className={styles.btn} aria-label="Toggle theme">
       <span className={styles.icon}>{dark ? '○' : '●'}</span>
-      <span className={styles.label}>{dark ? 'Light' : 'Dark'}</span>
+      <span className={styles.label}>{dark ? t.theme.light : t.theme.dark}</span>
     </button>
   )
 }

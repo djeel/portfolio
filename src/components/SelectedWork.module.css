@@ -127,6 +127,17 @@
   transition: opacity 0.35s var(--ease-expo);
 }
 .previewImg img { width: 100%; height: 100%; object-fit: cover; }
+.previewPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
 
 /* No floating preview on touch / coarse pointers */
 @media (hover: none), (pointer: coarse) {

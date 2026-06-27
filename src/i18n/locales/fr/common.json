@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "title": "djeel — Développeur Créatif Produit",
+    "description": "Construire des produits web clairs, utiles et ambitieux. Entre frontend, UI/UX et réflexion produit."
+  },
+  "nav": {
+    "available": "Disponible pour des projets",
+    "work": "Projets",
+    "about": "À propos",
+    "letsTalk": "En discuter"
+  },
+  "hero": {
+    "line1": "Créer des sites",
+    "line2Part1": "web qui",
+    "line2Highlight": "comptent",
+    "subtitle": "Développeur autodidacte opérant entre le frontend, l'UI/UX et la réflexion produit — construire des choses claires, utiles et ambitieuses.",
+    "selectedWork": "Projets sélectionnés",
+    "letsTalk": "En discuter →"
+  },
+  "selectedWork": {
+    "label": "Projets sélectionnés —",
+    "titlePart1": "Ce que j'ai",
+    "titlePart2": "construit."
+  },
+  "approach": {
+    "label": "Approche",
+    "titleLine1": "Comment",
+    "titleLine2": "je travaille.",
+    "lead": "Je ne pars pas d'un modèle. Je pars du problème.",
+    "items": [
+      "Comprendre avant de construire",
+      "Tester tôt, itérer souvent",
+      "Des solutions durables plutôt que des correctifs",
+      "Intégration, métriques et évolutivité dès le premier jour",
+      "Apprendre en construisant, pas en observant"
+    ]
+  },
+  "cta": {
+    "marquee": "Construisons quelque chose ✱ Disponible pour des projets ✱",
+    "label": "Contact",
+    "titleLine1": "Vous avez un",
+    "titleLine2": "projet en tête ?",
+    "letsTalk": "En discuter →"
+  },
+  "about": {
+    "title": "À propos",
+    "headlinePart1": "Construire des produits",
+    "headlinePart2": "qui fonctionnent vraiment.",
+    "bio1": "Aujourd'hui je travaille dans la retail. Mais mon vrai domaine de progression est le numérique.",
+    "bio2": "Depuis plusieurs années j'apprends en construisant : des interfaces, des outils, des expériences interactives, et de vrais produits. Pas comme un hobby — comme une pratique.",
+    "bio3": "Ce que je recherche maintenant c'est un environnement où cette énergie peut devenir une vraie carrière. Je m'intéresse aux rôles où la réflexion produit rencontre une bonne ingénierie : les startups en phase précoce, les produits ambitieux, et les équipes qui se soucient de la qualité.",
+    "bio4": "Mon projet principal est Murmur — une plateforme de communication voice-first que j'ai conçue, construite et déployée en solo. C'est le meilleur résumé de ma façon de penser et de travailler.",
+    "tools": "Outils",
+    "toolNotes": {
+      "daily": "quotidien",
+      "foundation": "base",
+      "systemsPerformance": "systèmes, performance",
+      "scriptingBackends": "scripting, backends",
+      "frontendFrameworks": "frameworks frontend",
+      "interactiveProjects": "projets interactifs"
+    },
+    "currently": "Actuellement",
+    "openTo": "Ouvert aux postes junior-ambitieux, produits en phase précoce, et freelancing ciblé.",
+    "getInTouch": "Me contacter →"
+  },
+  "contact": {
+    "title": "Contact",
+    "headlinePart1": "Travaillons",
+    "headlinePart2": "ensemble.",
+    "openTo": "Ouvert aux postes junior ambitieux, produits en phase précoce, et collaborations freelance ciblées.",
+    "responseTime": "Réponse sous 48h.",
+    "github": "GitHub ↗"
+  },
+  "footer": {
+    "getInTouch": "Me contacter",
+    "basedInFrance": "Basé en France · Disponible pour des projets"
+  },
+  "notFound": {
+    "title": "Page introuvable.",
+    "backHome": "Retour à l'accueil →"
+  },
+  "work": {
+    "back": "← Projets",
+    "year": "Année",
+    "role": "Rôle",
+    "category": "Catégorie",
+    "context": "Contexte",
+    "challenge": "Défi",
+    "keyDecisions": "Décisions clés",
+    "stack": "Stack",
+    "results": "Résultats",
+    "learnings": "Enseignements",
+    "nextProject": "Projet suivant",
+    "projectNotFound": "Projet introuvable.",
+    "liveSite": "Site en ligne"
+  },
+  "projects": {
+    "murmur": {
+      "tagline": "Une plateforme de communication voice-first, construite from scratch.",
+      "category": "App · Produit · Infrastructure",
+      "role": "Design · Développement · Architecture",
+      "description": "Une plateforme de communication complète : salons vocaux avec partage d'écran, chat textuel, DMs chiffrés de bout en bout, une API bot, et une infrastructure de production complète.",
+      "context": "Discord est la référence pour la communication communautaire. Mais construire quelque chose de similaire — from scratch, seul — est le meilleur moyen de comprendre ce qui fait fonctionner une plateforme en temps réel. Murmur a commencé comme une expérimentation et est devenu un produit prêt pour la production.",
+      "challenge": "La voix en temps réel c'est difficile. La signalisation WebRTC doit être rapide et fiable. Gérer les connexions WebSocket concurrentes pour le chat tout en gérant le routage vocal est un problème différent de la construction d'une application web typique. Ajoutez l'auth, le stockage de fichiers, les amis, l'interface multilingue, et le E2EE pour les DMs — et l'ampleur devient significative.",
+      "decisions": {
+        "rust": "Rust pour le backend",
+        "rustDetail": "Axum + Tokio gère la signalisation WebSocket et l'API HTTP. Critique en performance, sûr en mémoire. Le compilateur vous force à réfléchir aux modes de défaillance avant qu'ils n'atteignent la production.",
+        "solidjs": "SolidJS pour le frontend",
+        "solidjsDetail": "La réactivité à fine granularité signifie que l'UI se met à jour chirurgicalement — pas de surcharge du DOM virtuel. Mieux pour les tableaux de bord en temps réel, le statut vocal, et les listes de canaux en direct.",
+        "postgresRedis": "PostgreSQL + Redis",
+        "postgresRedisDetail": "Données relationnelles pour la persistance, Redis pour le pub/sub et le routage d'événements en temps réel entre instances.",
+        "webrtc": "WebRTC pour la voix",
+        "webrtcDetail": "Mesh peer-to-peer natif du navigateur. Partage d'écran inclus. Pas de serveur relais nécessaire pour les petites salles.",
+        "e2ee": "E2EE pour les messages directs",
+        "e2eeDetail": "Web Crypto API + TweetNaCl. Confidentialité par défaut. Le serveur ne voit jamais le contenu des DMs en texte clair."
+      },
+      "results": "Prêt pour la production : déployable en une commande via Docker Compose, monitoré avec Prometheus + Grafana + Uptime Kuma, testé en charge avec autocannon et k6. CI/CD via GitHub Actions → GHCR → runner auto-hébergé → VPS.",
+      "learnings": [
+        "Les systèmes en temps réel vous forcent à réfléchir à des modes de défaillance que vous ne considéreriez jamais dans une application CRUD.",
+        "L'observabilité n'est pas optionnelle en production. Si vous ne pouvez pas la mesurer, vous ne pouvez pas l'améliorer.",
+        "Le compilateur strict de Rust est le point — il attrape une classe de bugs avant qu'ils n'atteignent la production.",
+        "Construire à cette échelle seul nécessite une gestion impitoyable de la portée et la discipline de livrer quelque chose d'imparfait."
+      ]
+    },
+    "undercover": {
+      "tagline": "Un jeu de déduction sociale multijoueur en temps réel pour le navigateur.",
+      "category": "Jeu · Full-stack",
+      "role": "Design · Développement",
+      "description": "Une implémentation dans le navigateur du jeu de société Undercover, avec du multijoueur en temps réel, plusieurs modes de jeu, et un état persistant.",
+      "context": "Undercover est un jeu de société où les joueurs déduisent qui détient un mot secret différent. Le web n'a pas de grande version. J'en ai construit une.",
+      "challenge": "La synchronisation de l'état du jeu en temps réel entre plusieurs joueurs, la gestion gracieuse des déconnexions, et une interface qui paraît rapide sur tout appareil.",
+      "decisions": {
+        "fastapi": "FastAPI + Socket.IO",
+        "fastapiDetail": "Python FastAPI pour la logique jeu et HTTP, Socket.IO pour les événements bidirectionnels en temps réel. SQLite persiste l'état à travers les déconnexions.",
+        "react": "React + Framer Motion",
+        "reactDetail": "Structure de composants propre avec des transitions de phase fluides. TailwindCSS pour un style rapide et cohérent."
+      },
+      "results": "88 commits. Multijoueur en ligne et pass-and-play local. Plusieurs thèmes de mots. État persistant via SQLite.",
+      "learnings": [
+        "Les automates à états de jeu sont un modèle mental utile pour toute interface complexe avec plusieurs modes.",
+        "L'UX basée sur WebSocket nécessite une réflexion attentive sur la latence et les états de reconnexion."
+      ]
+    },
+    "gangui": {
+      "tagline": "Une présence web pour une communauté de jeu Minecraft.",
+      "category": "Communauté · Web",
+      "role": "Design · Développement",
+      "description": "Un site web pour le serveur communautaire Minecraft Gangui Network — donner à une communauté de jeu active une page d'accueil web qui correspond à leur identité.",
+      "context": "Les communautés de jeu vivent et meurent par leur présence. Gangui Network avait besoin d'une page d'accueil web propre et ciblée — pas un modèle de gaming générique.",
+      "challenge": "Capturer l'identité d'une communauté spécifique sans tomber dans l'esthétique générique des sites de gaming.",
+      "decisions": {
+        "vanilla": "Stack vanilla",
+        "vanillaDetail": "HTML, CSS, JavaScript — pas de framework. Le site est principalement statique avec une interactivité légère. Ajouter un outil de build aurait été un surcoût sans bénéfice.",
+        "community": "Design communautaire d'abord",
+        "communityDetail": "Les couleurs et le ton ont été dérivés de l'identité communautaire, pas d'un modèle de gaming générique. Chaque choix visuel a été validé par rapport à leur branding existant."
+      },
+      "results": "En ligne sur gangui.eu. Activement utilisé par la communauté.",
+      "learnings": [
+        "Concevoir pour une communauté signifie comprendre leur culture d'abord, puis la traduire visuellement.",
+        "Les contraintes (stack simple, vrais utilisateurs) sont productives — elles forcent des décisions ciblées."
+      ]
+    },
+    "kime": {
+      "tagline": "Un dashboard sportif gamifié qui transforme l'entraînement en habitude quotidienne.",
+      "category": "Web · Produit · Gamification",
+      "role": "Design · Développement",
+      "description": "Un dashboard de sport inspiré de Duolingo : séries quotidiennes, XP et niveaux, suivi d'exercices avec statistiques de progression, et rappels d'objectifs — pensé pour rendre la régularité gratifiante.",
+      "context": "Les applis de fitness savent enregistrer les séances mais peinent à faire revenir les gens. Duolingo a résolu la rétention quotidienne de l'apprentissage des langues via les streaks, l'XP et une pression douce. Kime applique cette même psychologie au sport — transformer l'entraînement en boucle d'habitude plutôt qu'en corvée.",
+      "challenge": "La gamification est facile à rater : trop, ça fait gadget ; trop peu, ça ne sert à rien. Le plus dur a été de concevoir un système de progression — streaks, XP, niveaux — qui motive vraiment sans punir les jours manqués, tout en gardant le dashboard lisible d'un coup d'œil.",
+      "decisions": {
+        "stack": "React + TypeScript + Vite",
+        "stackDetail": "Une base SPA rapide : Vite pour le HMR instantané, TypeScript pour la fiabilité de la logique d'état qui pilote les streaks, l'XP et les seuils de niveaux.",
+        "progression": "Système de streak, XP & niveaux",
+        "progressionDetail": "Le cœur de la motivation. Les streaks quotidiens récompensent la régularité, l'XP et les niveaux visualisent la progression sur la durée, et les jours manqués atténuent le streak au lieu de tout remettre à zéro — en empruntant la psychologie de rétention de Duolingo.",
+        "design": "Design system TailwindCSS",
+        "designDetail": "Un système utilitaire garde le dashboard dense mais lisible, avec une hiérarchie claire entre les objectifs du jour, les statistiques de progression et les rappels."
+      },
+      "results": "Un dashboard gamifié fonctionnel : séries quotidiennes, XP et niveaux, suivi d'exercices avec statistiques de progression, et rappels d'objectifs. Déployé sur GitHub Pages.",
+      "learnings": [
+        "La gamification est un problème de design avant d'être un problème de code — la courbe de récompense compte plus que l'implémentation.",
+        "Emprunter des mécaniques de rétention éprouvées est plus rapide et plus sûr que d'inventer un système de motivation de zéro."
+      ]
+    }
+  },
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "langSwitch": {
+    "en": "EN",
+    "fr": "FR"
+  }
+}
