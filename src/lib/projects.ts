@@ -140,7 +140,7 @@ export const projects: Project[] = [
     url: 'https://github.com/wydii/polyagent',
   },
   {
-    slug: 'nutrai', coverImage: '', number: '07', title: 'NutrAI',
+    slug: 'nutrai', coverImage: '/work/nutrai-cover.png', number: '07', title: 'NutrAI',
     tagline: 'An AI nutrition coach, shipped as a real SaaS.',
     category: 'SaaS · AI · Full-stack', year: '2026',
     role: 'Design · Development · Architecture', color: '#9e2456', textColor: '#F7F6F3',
