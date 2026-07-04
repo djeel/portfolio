@@ -1,7 +1,12 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<import('lenis').default | null>(null)
+  const firstRender = useRef(true)
+  const pathname = usePathname()
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) return
@@ -23,6 +28,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
         duration: 1.15,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       })
+      lenisRef.current = lenis
 
       // Drive Lenis from GSAP's ticker for a single synced loop
       lenis.on('scroll', ScrollTrigger.update)
@@ -41,9 +47,28 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
     return () => {
       cancelAnimationFrame(rafId)
       cleanupGsap?.()
+      lenisRef.current = null
       lenis?.destroy()
     }
   }, [])
+
+  // Reset scroll to the top on client navigation. Lenis owns the scroll
+  // position, so Next's default scroll restoration doesn't take effect —
+  // without this, following a link from the bottom leaves you at the bottom.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    const lenis = lenisRef.current
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+    // New page content changes trigger positions — recompute them.
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => ScrollTrigger.refresh())
+  }, [pathname])
 
   return <>{children}</>
 }
