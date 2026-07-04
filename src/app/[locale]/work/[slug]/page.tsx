@@ -12,6 +12,7 @@ const decisionKeys: Record<string, string[]> = {
   mcsounds: ['zeroBackend', 'mojangAssets', 'virtualizedGrid', 'floatingPlayer'],
   kime: ['stack', 'progression', 'design'],
   polyagent: ['fastapiSse', 'mcpStdio', 'openaiApi', 'vanillaFrontend'],
+  nutrai: ['demoFirst', 'supabaseRls', 'stripeBilling', 'aiProxy'],
 }
 
 export async function generateStaticParams() {
