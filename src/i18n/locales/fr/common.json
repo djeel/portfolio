@@ -226,6 +226,30 @@
         "MCP stdio est une abstraction propre pour connecter des LLMs à des outils externes — le protocole est simple et la séparation des responsabilités est réelle.",
         "Le streaming SSE rend l'IA conversationnelle instantanée — l'utilisateur voit les tokens apparaître au fur et à mesure que le modèle les génère, pas après une réponse complète."
       ]
+    },
+    "nutrai": {
+      "tagline": "Un coach nutrition IA, livré comme un vrai SaaS.",
+      "category": "SaaS · IA · Full-stack",
+      "role": "Design · Développement · Architecture",
+      "description": "Une app de suivi nutritionnel avec coach IA : on fixe son objectif, on obtient des cibles de calories et de macros personnalisées, on logue ses repas avec des macros estimées par l'IA, et on suit sa journée — le tout dans une coque SaaS complète avec landing animée, authentification et facturation Stripe.",
+      "context": "La plupart des compteurs de calories obligent à chercher chaque chiffre à la main. NutrAI inverse la logique : on décrit un repas en langage naturel et l'IA remplit les calories et les macros. Mais le vrai exercice était de le livrer comme un produit complet — landing marketing, démo sans inscription, comptes, abonnements et pages légales — pas juste un dashboard.",
+      "challenge": "Construire un SaaS de bout en bout en solo, c'est faire tenir chaque couche : une démo côté client qui marche sans compte, une frontière d'auth qui se dégrade proprement quand le backend est absent, une sécurité au niveau des lignes pour que chacun ne voie que ses données, des webhooks Stripe signés, et un proxy IA qui ne fuite jamais sa clé vers le navigateur.",
+      "decisions": {
+        "demoFirst": "Onboarding démo d'abord",
+        "demoFirstDetail": "Toute l'app est utilisable sans compte — configuration du plan, journal des repas et cibles tournent entièrement côté client dans localStorage. Créer un compte débloque la synchro cloud et le coach IA, montrés verrouillés avec des CTA d'inscription. Aucun mur d'inscription avant d'avoir vu la valeur.",
+        "supabaseRls": "Supabase Auth + RLS",
+        "supabaseRlsDetail": "La sécurité au niveau des lignes de Postgres lie chaque ligne à son propriétaire au niveau de la base, l'API ne peut donc jamais servir par accident les données d'un autre utilisateur. L'app retombe aussi proprement en mode démo quand l'env Supabase est absent.",
+        "stripeBilling": "Stripe Checkout + webhooks",
+        "stripeBillingDetail": "Le Premium passe par Stripe Checkout, avec un webhook à signature vérifiée comme unique source de vérité pour l'état de l'abonnement — le client n'est jamais autorisé à se déclarer payant.",
+        "aiProxy": "Proxy IA côté serveur",
+        "aiProxyDetail": "L'estimation des repas et le coach appellent un LLM via OpenRouter depuis une route serveur. La clé d'API reste côté serveur et n'est jamais exposée au client — le navigateur ne parle qu'à notre propre endpoint."
+      },
+      "results": "Déployé sur Vercel avec une landing animée, une démo publique sans inscription, et des pages légales (CGU, confidentialité). Toute la stack SaaS — auth Supabase + RLS, facturation Stripe et coach IA via OpenRouter — est construite et câblée, prête à s'activer une fois les clés de production posées.",
+      "learnings": [
+        "Livrer un SaaS, c'est surtout tout ce qui n'est pas la fonctionnalité centrale — auth, facturation, légal, états vides, dégradation gracieuse. Le dashboard, c'était les 20 % faciles.",
+        "Une démo sans friction convertit mieux qu'un mur d'inscription — laisse les gens ressentir la valeur d'abord, puis demande le compte pour la conserver.",
+        "Concevoir dès le premier jour pour « le backend n'est peut-être pas là » a rendu à la fois le mode démo et le chemin de déploiement bien plus simples qu'un ajout après coup."
+      ]
     }
   },
   "theme": {

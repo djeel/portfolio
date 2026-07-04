@@ -139,6 +139,29 @@ export const projects: Project[] = [
     ],
     url: 'https://github.com/wydii/polyagent',
   },
+  {
+    slug: 'nutrai', coverImage: '', number: '07', title: 'NutrAI',
+    tagline: 'An AI nutrition coach, shipped as a real SaaS.',
+    category: 'SaaS · AI · Full-stack', year: '2026',
+    role: 'Design · Development · Architecture', color: '#9e2456', textColor: '#F7F6F3',
+    description: 'A nutrition tracking app with an AI coach: set your goal, get personalized calorie and macro targets, log meals with AI-estimated macros, and follow your day — wrapped in a full SaaS shell with an animated landing, auth, and Stripe billing.',
+    context: 'Most calorie trackers make you look up every number by hand. NutrAI flips that: describe a meal in plain language and the AI fills in the calories and macros. But the real exercise was shipping it as a complete product — marketing landing, try-before-signup demo, accounts, subscriptions, and legal pages — not just a dashboard.',
+    challenge: 'Building an end-to-end SaaS solo means every layer has to hold: a client-side demo that works with no account, an auth boundary that degrades gracefully when the backend is absent, row-level security so users only ever see their own data, signed Stripe webhooks, and an AI proxy that never leaks its key to the browser.',
+    decisions: [
+      { title: 'Demo-first onboarding', detail: 'The whole app is usable with no account — plan setup, meal logging and targets run entirely client-side in localStorage. Creating an account is what unlocks cloud sync and the AI coach, which are shown locked with signup CTAs. No dead-end signup wall before value.' },
+      { title: 'Supabase Auth + RLS', detail: 'Postgres row-level security binds every row to its owner at the database level, so the API can never accidentally serve another user\'s data. The app also degrades cleanly to demo mode when the Supabase env is absent.' },
+      { title: 'Stripe Checkout + webhooks', detail: 'Premium is gated through Stripe Checkout, with a signature-verified webhook as the single source of truth for subscription state — the client is never trusted to declare itself paid.' },
+      { title: 'Server-side AI proxy', detail: 'Meal estimation and the coach call an LLM through OpenRouter from a server route. The API key stays server-side and is never exposed to the client — the browser only ever talks to our own endpoint.' },
+    ],
+    stack: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'PostgreSQL', 'Stripe', 'OpenRouter', 'Vercel'],
+    results: 'Deployed on Vercel with an animated landing, a public try-before-signup demo, and legal pages (terms, privacy). The full SaaS stack — Supabase auth + RLS, Stripe billing, and the OpenRouter-backed AI coach — is built and wired, ready to activate once the production keys are provisioned.',
+    learnings: [
+      'Shipping a SaaS is mostly the parts that are not the core feature — auth, billing, legal, empty states, graceful degradation. The dashboard was the easy 20%.',
+      'A demo that works with zero friction converts better than a signup wall — let people feel the value first, then ask for the account to keep it.',
+      'Designing for "the backend might not be there" from day one made both the demo mode and the deploy path far simpler than bolting it on later.',
+    ],
+    url: 'https://nutrai-tau.vercel.app',
+  },
 ]
 
 export function getProject(slug: string) {
