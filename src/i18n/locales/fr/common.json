@@ -250,6 +250,29 @@
         "Une démo sans friction convertit mieux qu'un mur d'inscription — laisse les gens ressentir la valeur d'abord, puis demande le compte pour la conserver.",
         "Concevoir dès le premier jour pour « le backend n'est peut-être pas là » a rendu à la fois le mode démo et le chemin de déploiement bien plus simples qu'un ajout après coup."
       ]
+    },
+    "orchidblack": {
+      "tagline": "Le flagship d'une maison de mode fictive, conçu comme une archive technique.",
+      "category": "Marque · Direction artistique · Web",
+      "role": "Design · Développement · Direction artistique",
+      "description": "Le flagship digital d'ORCHIDBLACK, maison de mode technique fictive — entrée lookbook, catalogue d'objets avec panier démo et manifeste de la maison, le tout conçu comme une seule archive éditoriale dense.",
+      "context": "Les sites de mode se ressemblent : heros plein écran flottant dans le vide. ORCHIDBLACK prend le contre-pied : le site se lit comme un dossier technique — cadre fixe à filets, index tabulaire de chaque pièce, fiches matières façon spec-sheet et barre de progression de lecture. La structure avant la silhouette, sur la page comme sur le corps.",
+      "challenge": "Tenir une direction artistique stricte (une encre, un rose signal, ni dégradés ni ombres) sans appauvrir la page. Le système halftone répond à ça : des trames de points façon print remplacent chaque fondu, rendues sur canvas pour que les points réagissent au curseur.",
+      "decisions": {
+        "frame": "Cadre d'archive éditorial",
+        "frameDetail": "Des barres fixes haute et basse transforment chaque page en dossier numéroté : marque, slogan, navigation indexée, série, progression de lecture. Le contenu vit dans une grille à filets — des tables plutôt que des cards.",
+        "halftone": "Système halftone interactif",
+        "halftoneDetail": "Une trame de points en Canvas 2D remplace les dégradés partout : bande ondulée rose en bas de chaque page, textures fines derrière les vêtements. Les points gonflent organiquement autour du curseur (position lissée par lerp, atténuation gaussienne), et la boucle rAF s'endort à l'arrêt.",
+        "noAnimLib": "Zéro librairie d'animation",
+        "noAnimLibDetail": "CSS transform/opacity plus un seul reveal de texte en requestAnimationFrame. prefers-reduced-motion rend tout à l'état final instantanément — aucun contenu n'est jamais conditionné à une animation.",
+        "variableFont": "Fonte variable plutôt que fausse famille",
+        "variableFontDetail": "La display est Archivo avec son axe de largeur à 125 % via font-stretch — une fonte variable au lieu d'une requête « Archivo Expanded » inexistante qui retombait silencieusement sur les fontes système."
+      },
+      "results": "Déployé sur Vercel. Trois routes (Collection, Objects, House), une machine à états de métadonnées pilotée par le scroll, panier démo et fiches produit immersives, navigation clavier complète, et un bundle d'environ 83 ko gzippé sans dépendance d'animation.",
+      "learnings": [
+        "Un système de contraintes strict (deux couleurs, pas de dégradés) produit une identité plus forte qu'une palette ouverte — les trames halftone existent parce que les fondus étaient interdits.",
+        "Le reduced motion est un chemin de rendu, pas un patch : concevoir l'état statique d'abord rend les états animés additifs au lieu de porteurs."
+      ]
     }
   },
   "theme": {

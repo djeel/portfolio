@@ -13,6 +13,7 @@ const decisionKeys: Record<string, string[]> = {
   kime: ['stack', 'progression', 'design'],
   polyagent: ['fastapiSse', 'mcpStdio', 'openaiApi', 'vanillaFrontend'],
   nutrai: ['demoFirst', 'supabaseRls', 'stripeBilling', 'aiProxy'],
+  orchidblack: ['frame', 'halftone', 'noAnimLib', 'variableFont'],
 }
 
 export async function generateStaticParams() {

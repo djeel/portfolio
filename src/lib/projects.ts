@@ -162,6 +162,28 @@ export const projects: Project[] = [
     ],
     url: 'https://nutrai-tau.vercel.app',
   },
+  {
+    slug: 'orchidblack', coverImage: '/work/orchidblack-cover.png', number: '08', title: 'ORCHIDBLACK',
+    tagline: 'A fictional fashion house flagship, designed as a technical archive.',
+    category: 'Brand · Art Direction · Web', year: '2026',
+    role: 'Design · Development · Art Direction', color: '#1D1D1D', textColor: '#E5BDDF',
+    description: 'The digital flagship of ORCHIDBLACK, a fictional technical fashion house — lookbook entry, object catalogue with a demo cart, and a house manifesto, all designed as one dense editorial archive.',
+    context: 'Fashion sites default to full-bleed heroes floating in empty space. ORCHIDBLACK goes the other way: the site reads like a technical dossier — a fixed frame with hairline rules, a tabular index of every garment, spec-sheet material cards, and a reading-progress bar. Structure before silhouette, on the page as much as on the body.',
+    challenge: 'Committing to a strict art direction (one ink, one signal pink, no gradients, no shadows) while keeping the page expressive. The halftone system answers that: print-style dot screens replace every fade, rendered on canvas so the dots can react to the cursor.',
+    decisions: [
+      { title: 'Editorial archive frame', detail: 'Fixed top and bottom bars turn every page into a numbered dossier: brand, slogan, indexed navigation, series, reading progress. Content lives in a hairline grid — tables and filets instead of cards.' },
+      { title: 'Interactive halftone system', detail: 'A Canvas 2D dot screen replaces gradients everywhere: a pink wave band at every page bottom and fine textures behind garments. Dots swell organically around the cursor via a lerped position and gaussian falloff, with the rAF loop sleeping when idle.' },
+      { title: 'No animation library', detail: 'CSS transforms/opacity plus one requestAnimationFrame text reveal. prefers-reduced-motion renders everything in its final state instantly — no content is ever gated behind an animation.' },
+      { title: 'Variable font over fake family', detail: 'The display face is Archivo with its width axis at 125% via font-stretch — one variable font instead of a nonexistent "Archivo Expanded" webfont request silently falling back to system fonts.' },
+    ],
+    stack: ['React 19', 'TypeScript', 'Vite', 'CSS Modules', 'Canvas 2D', 'React Router', 'Vercel'],
+    results: 'Deployed on Vercel. Three routes (Collection, Objects, House), a scroll-driven metadata state machine, demo cart and immersive product sheets, full keyboard navigation, and a ~83 kB gzipped bundle with zero animation dependencies.',
+    learnings: [
+      'A strict constraint system (two colors, no gradients) produces a stronger identity than an open palette — the halftone screens exist because fades were forbidden.',
+      'Reduced motion is a rendering path, not a patch: designing the static state first makes animated states additive instead of load-bearing.',
+    ],
+    url: 'https://orchidblack.vercel.app',
+  },
 ]
 
 export function getProject(slug: string) {
